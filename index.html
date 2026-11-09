@@ -1,0 +1,103 @@
+<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RegulaDrive | Atelier d’homologation</title>
+<style>
+:root{color-scheme:light;--navy:#10243d;--ink:#172b42;--muted:#4b6076;--border:#d5dee7;--paper:#f1f4f7;--accent:#12685f}
+*{box-sizing:border-box}
+body{margin:0;height:100vh;height:100dvh;overflow:hidden;display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:var(--paper);color:var(--ink);font:17px/1.38 "Times New Roman",Times,serif}
+header{background:var(--navy);color:white;padding:14px clamp(18px,4vw,54px);display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:3px solid #68c9b9}
+header small,.eyebrow{letter-spacing:.12em;font-size:.75rem;font-weight:bold;text-transform:uppercase}
+header small{color:#b6cfdd}h1{font-size:clamp(26px,4vw,40px);line-height:1.05;margin:2px 0}header strong{color:#86dbce}header .tag{background:#223e56;color:#f2f7fa}
+main{display:grid;grid-template-columns:218px minmax(0,1fr);min-height:0;width:min(1490px,100%);margin:auto;height:100%;gap:22px;padding:18px clamp(12px,3vw,36px)}
+nav{background:white;border:1px solid var(--border);border-radius:10px;padding:12px;align-self:start;display:grid;gap:4px}
+nav .eyebrow{padding:7px 8px;color:var(--muted)}
+nav button{display:flex;align-items:center;gap:10px;text-align:left;width:100%;border-color:transparent;background:white;color:var(--ink);margin:0}
+nav button span{color:var(--muted);font-size:.85em}nav button[aria-selected=true]{background:#e3f2ee;color:#114d47;border-color:#abd0c7;font-weight:bold}
+nav button:hover{background:#edf3f7}
+.workspace{min-width:0;min-height:0;border:1px solid var(--border);border-radius:12px;background:white;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+section[role=tabpanel]{padding:clamp(15px,3vw,30px);max-width:1150px;margin:auto}
+[hidden]{display:none!important}h2{font-size:clamp(23px,3vw,32px);line-height:1.15;margin:0 0 8px}h3{margin:8px 0;font-size:1.18rem}p{margin:8px 0 14px}.eyebrow{color:var(--accent);margin:0 0 7px}
+article{background:#f7f9fb;border:1px solid var(--border);border-radius:8px;padding:14px;margin:9px 0;overflow-wrap:anywhere}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px}.grid>article{margin:0}
+label{display:block;font-weight:bold;margin:11px 0 5px}
+input,textarea,select,button{font:inherit;padding:7px 11px;border:1px solid #879db2;border-radius:6px}
+input,textarea,select{background:white;color:var(--ink);max-width:100%}textarea{width:100%;min-height:72px;resize:vertical}input[type=file]{width:100%}
+button{background:var(--navy);color:white;cursor:pointer;margin:5px 6px 0 0}button.alt{background:white;color:var(--navy)}button:disabled{opacity:.55;cursor:default}
+:focus-visible{outline:3px solid #008477;outline-offset:3px}
+.tag{font-size:.84rem;background:#e2f1ee;color:#12554f;padding:4px 8px;border-radius:4px;display:inline-block}
+.muted{color:var(--muted)}.old{border-left:4px solid #a9692f}.new{border-left:4px solid #16786c}blockquote{margin:9px 0;overflow-wrap:anywhere}.steps,.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.search-row{display:flex;gap:8px;align-items:stretch}.search-row input{flex:1;min-width:0}.search-row button{margin:0}
+summary{font-weight:bold;cursor:pointer;color:#14554f;padding:7px 0}.answer{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.55;margin:8px 0}
+footer{padding:4px 12px;text-align:center;font-size:.83rem;color:var(--muted)}
+@media(max-width:760px){main{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);gap:8px;padding:8px}nav{display:flex;flex-wrap:wrap;gap:4px;padding:5px}nav button{width:auto;padding:4px 7px}nav .eyebrow,nav button span,header .tag{display:none}header{padding:7px 12px}footer{font-size:.72rem}}
+</style>
+<header><div><small>Atelier de revue réglementaire automobile</small><h1>RegulaDrive <strong>AI</strong></h1></div><span class="tag">Prototype indépendant</span></header>
+<main>
+<nav role="tablist" aria-label="Sections de l’atelier">
+<div class="eyebrow" aria-hidden="true">Espace de travail</div>
+<button id="tab-accueil" type="button" role="tab" aria-controls="accueil" aria-selected="true"><span>00</span> Vue d’ensemble</button>
+<button id="tab-eurlex" type="button" role="tab" aria-controls="eurlex" aria-selected="false" tabindex="-1"><span>EU</span> EUR-Lex</button>
+<button id="tab-recherche" type="button" role="tab" aria-controls="recherche" aria-selected="false" tabindex="-1"><span>01</span> Corpus</button>
+<button id="tab-importer" type="button" role="tab" aria-controls="importer" aria-selected="false" tabindex="-1"><span>02</span> Importer</button>
+<button id="tab-comparaison" type="button" role="tab" aria-controls="comparaison" aria-selected="false" tabindex="-1"><span>03</span> Comparateur</button>
+<button id="tab-assistant" type="button" role="tab" aria-controls="assistant" aria-selected="false" tabindex="-1"><span>04</span> Assistant IA</button>
+<button id="tab-suivi" type="button" role="tab" aria-controls="suivi" aria-selected="false" tabindex="-1"><span>05</span> Suivi</button>
+</nav>
+<div class="workspace" id="workspace">
+<section role="tabpanel" id="accueil" aria-labelledby="tab-accueil" tabindex="0"><p class="eyebrow">Accueil</p><h2>Préparer une revue réglementaire</h2><p class="muted">Retrouvez une clause, comparez ses versions, puis transmettez une analyse sourcée à un spécialiste.</p><div class="grid"><article><span class="tag">CORPUS</span><h3 id="count-corpus">3 clauses</h3><p>Exemples de freinage, cybersécurité et environnement, et clauses importées.</p></article><article><span class="tag">REVUE</span><h3 id="count-tasks">0 fiche</h3><p>Écarts à examiner avec un spécialiste.</p></article><article><span class="tag">IA LOCALE</span><h3 id="ai-status">À connecter</h3><p>Recherche dans le corpus et synthèse avec références.</p><button class="alt" id="check-ai">Vérifier Ollama</button></article></div><div class="actions"><button data-open="eurlex">Ouvrir EUR-Lex</button><button class="alt" data-open="recherche">Cas fictifs</button><button class="alt" data-open="importer">Importer une clause</button></div></section>
+<section role="tabpanel" id="importer" aria-labelledby="tab-importer" tabindex="0" hidden><p class="eyebrow">Documents</p><h2>Importer deux versions</h2><p class="muted">Collez le texte ou choisissez un fichier TXT. Jusqu’à 5 000 caractères par version.</p>
+<label for="doc-title">Titre de la clause</label><input id="doc-title" maxlength="120">
+<div class="grid"><div><label for="old-file">Version 1 (.txt facultatif)</label><input id="old-file" type="file" accept=".txt,text/plain"><label for="doc-old">Texte de la version 1</label><textarea id="doc-old" maxlength="5000"></textarea></div>
+<div><label for="new-file">Version 2 (.txt facultatif)</label><input id="new-file" type="file" accept=".txt,text/plain"><label for="doc-new">Texte de la version 2</label><textarea id="doc-new" maxlength="5000"></textarea></div></div>
+<button id="import">Ajouter au corpus local</button><p id="import-status" role="status"></p></section>
+
+<section role="tabpanel" id="eurlex" aria-labelledby="tab-eurlex" tabindex="0" hidden>
+<p class="eyebrow">Corpus officiel · Union européenne</p><h2>Registre EUR-Lex</h2>
+<p class="muted" id="eu-count"></p>
+<p class="muted">Extraits indexés des éditions publiées et d’une consolidation datée. Ouvrez EUR-Lex pour vérifier la version applicable, les modifications et les dates.</p>
+<div class="grid"><div><label for="eu-act">Acte</label><select id="eu-act"></select></div><div><label for="eu-mode">Mode de recherche</label><select id="eu-mode"><option value="lexical">Lexical · hors ligne</option><option value="hybrid">Hybride · réseau neuronal local</option></select></div></div>
+<label for="eu-query">Question ou mots-clés</label><div class="search-row"><input id="eu-query" placeholder="Ex. particules de frein, CEM, contrôle technique"><button id="eu-search">Rechercher</button></div>
+<p id="eu-status" role="status"></p><div id="eu-results"></div>
+<div class="actions"><button id="eu-ask" hidden>Interroger l’IA sur ces extraits</button></div><p id="eu-ai-status" role="status"></p><div id="eu-answer"></div>
+</section>
+<section role="tabpanel" id="recherche" aria-labelledby="tab-recherche" tabindex="0" hidden><h2>Rechercher dans le corpus</h2><label for="query">Question ou mots-clés</label><div class="search-row"><input id="query" placeholder="Ex. Quelle preuve conserver après un essai de freinage ?"><button id="search">Rechercher</button></div><div class="steps"><button class="alt example">freinage</button><button class="alt example">cybersécurité</button><button class="alt example">particules</button></div><p id="result" aria-live="polite" class="muted"></p><div id="hits"></div></section>
+<section role="tabpanel" id="comparaison" aria-labelledby="tab-comparaison" tabindex="0" hidden><h2>Comparer deux versions</h2><label for="clause">Clause de démonstration</label><select id="clause"></select><div class="grid" id="versions"></div><div id="impact"></div><div class="actions"><button id="add">Ajouter au suivi</button><button class="alt" data-open="assistant">Analyser avec l’IA</button></div><p id="notice" role="status"></p></section>
+<section role="tabpanel" id="assistant" aria-labelledby="tab-assistant" tabindex="0" hidden><h2>Assistant IA avec sources</h2>
+<p>Le modèle local utilise la clause sélectionnée ou les deux meilleurs résultats de recherche. Vérifiez chaque citation dans les extraits.</p>
+<div class="grid"><div><label for="mode">Mode d’analyse</label><select id="mode"><option value="answer">Question / réponse</option><option value="compare">Comparaison de versions</option><option value="impact">Fiche d’impact</option><option value="brief">Synthèse de revue</option></select></div><div><label for="scope">Sources à analyser</label><select id="scope"><option value="selected">Clause sélectionnée</option><option value="search">Résultats de recherche</option></select></div></div>
+<label for="ai-question">Question ou angle d’analyse</label><textarea id="ai-question" maxlength="2000" placeholder="Quelles pièces faut-il ajouter au dossier d’essai ?"></textarea>
+<button id="ask">Analyser avec l’IA</button><p id="ai-progress" role="status"></p><div id="ai-output"></div><button id="export-ai" class="alt" hidden>Exporter l’analyse (JSON)</button><button id="save-analysis" hidden>Joindre le brouillon au suivi</button></section>
+<section role="tabpanel" id="suivi" aria-labelledby="tab-suivi" tabindex="0" hidden><h2>Suivre la validation</h2><p class="muted">Les fiches et brouillons enregistrés restent dans ce navigateur si le stockage local est disponible. Les exports permettent de transmettre une copie.</p><div id="tasks"></div><button id="export">Exporter les fiches (JSON)</button></section>
+</div></main>
+<footer>Sources officielles et cas fictifs séparés · Analyse à valider par un spécialiste</footer>
+<script>
+const workspaceTabs = Array.from(document.querySelectorAll('[role="tab"]'));
+function openPanel(id, focusTab=false) {
+  const target = workspaceTabs.find(tab=>tab.getAttribute('aria-controls')===id);
+  if (!target) return;
+  const pane = document.getElementById('workspace');
+  const current = workspaceTabs.find(tab=>tab.getAttribute('aria-selected')==='true');
+  if (current) document.getElementById(current.getAttribute('aria-controls')).dataset.scrollTop=pane.scrollTop;
+  for(const tab of workspaceTabs) {
+    const active=tab===target;
+    tab.setAttribute('aria-selected',String(active));
+    tab.tabIndex=active?0:-1;
+    document.getElementById(tab.getAttribute('aria-controls')).hidden=!active;
+  }
+  pane.scrollTop=Number(document.getElementById(id).dataset.scrollTop)||0;
+  if(focusTab)target.focus();
+}
+for(const [index,tab] of workspaceTabs.entries()) {
+  tab.onclick=()=>openPanel(tab.getAttribute('aria-controls'));
+  tab.onkeydown=event=>{
+    const offset={ArrowLeft:-1,ArrowUp:-1,ArrowRight:1,ArrowDown:1}[event.key];
+    let next;
+    if(offset)next=(index+offset+workspaceTabs.length)%workspaceTabs.length;
+    else if(event.key==='Home')next=0;
+    else if(event.key==='End')next=workspaceTabs.length-1;
+    else return;
+    event.preventDefault();
+    openPanel(workspaceTabs[next].getAttribute('aria-controls'),true);
+  };
+}
+for(const link of document.querySelectorAll('[data-open]'))link.onclick=()=>openPanel(link.dataset.open,true);
+</script>
+<script src="app.js"></script><script src="ai.js"></script><script src="data/eurlex.js"></script><script src="eurlex.js"></script></html>
