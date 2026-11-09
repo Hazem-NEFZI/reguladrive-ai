@@ -1,13 +1,31 @@
+<div align="center">
+
 # RegulaDrive AI
 
-**Atelier de veille et de revue réglementaire automobile**  
-Hazem Nefzi · Prototype portfolio indépendant
+### Atelier de veille réglementaire automobile
 
-Rechercher une clause, comparer ses versions, demander une synthèse avec sources, puis transmettre une fiche à un spécialiste. Démonstration en français inspirée de l’offre Stellantis 2026-19700.
+**15 entrées EUR-Lex · 2 254 passages en français · IA locale · Revue humaine**
 
-> Les trois cas fournis sont fictifs. Une fiche « Revu » signale une revue humaine dans l’outil et ne constitue pas une décision d’homologation.
+Hazem Nefzi · Projet portfolio indépendant
 
-Les sept onglets donnent accès à la vue d’ensemble, à EUR-Lex, au corpus, à l’import, au comparateur, à l’assistant IA et au suivi. Les flèches permettent de naviguer entre les onglets au clavier. Seul le panneau ouvert défile si son contenu dépasse l’écran.
+[Aperçu](#aperçu-du-studio) · [Démarrage](#démarrage) · [Corpus](#corpus-officiel-eur-lex) · [Validation](#validation)
+
+</div>
+
+Retrouvez des dispositions dans des textes automobiles, comparez deux versions et préparez une synthèse sourcée pour une revue avec un spécialiste. Le projet s’inspire de la mission de veille et d’homologation décrite dans l’offre Stellantis **2026-19700**.
+
+## Aperçu du studio
+
+![Vue d’ensemble de RegulaDrive AI](assets/screenshots/dashboard.png)
+
+*Vue d’ensemble et navigation par onglets.*
+
+| Recherche dans EUR-Lex | Comparaison de deux versions |
+| --- | --- |
+| [![Recherche « particules de frein » dans Euro 7](assets/screenshots/eur-lex.png)](assets/screenshots/eur-lex.png) | [![Comparateur de clauses avec différences côte à côte](assets/screenshots/comparateur.png)](assets/screenshots/comparateur.png) |
+| Recherche réelle dans le corpus officiel, filtrée sur Euro 7. | Cas fictif de freinage pour illustrer la revue d’un changement. |
+
+Cliquez sur une capture du tableau pour l’ouvrir en grand.
 
 ## Corpus officiel EUR-Lex
 
@@ -51,6 +69,10 @@ python server.py
 Ouvrir **http://127.0.0.1:8765** puis cliquer sur **Vérifier Ollama**. Si Ollama ne tourne pas déjà, lancer `ollama serve` dans un deuxième terminal. Le téléchargement initial du modèle requiert Internet. Sur une machine avec peu de mémoire ou un GPU limité, l’inférence peut être lente. Pour choisir un autre modèle déjà téléchargé, définir `$env:REGULADRIVE_MODEL = "nom:tag"` avant de lancer le serveur.
 
 ## Démo en entretien
+
+Pour commencer sur des données réelles, ouvrez **EUR-Lex**, choisissez **Euro 7** et recherchez **particules de frein**. Dépliez un extrait et ouvrez sa source officielle. Avec Ollama actif, lancez une analyse sourcée depuis les résultats.
+
+Pour montrer le comparateur et le suivi, utilisez ensuite le **cas fictif de freinage** dans l’onglet **Corpus**.
 
 1. Rechercher **freinage**, puis sélectionner la clause dans les résultats.
 2. Comparer les deux versions. Repérer l’ajout des relevés bruts et de la référence logicielle.
